@@ -2,6 +2,23 @@ import string
 import secrets
 import time
 
+#Filter out all other words
+yes_no=("y", "yes", "n", "no")
+
+#Function to ask the user if they want to include a certain character type in the password
+def choosing_characters(character):
+    while True:
+            try:
+                character = str(input("Include" + character + "? (y/n) ")).lower().strip()
+            except ValueError:
+                print("Please enter yes or no! ")
+                continue
+            if character not in yes_no:
+                print("Please enter yes or no! ")
+                continue
+            break
+    return character
+
 
 #Ask the user for the input until they enter a whole
 # number greater than 0
@@ -19,51 +36,18 @@ while True:
         continue
     break
 
-#Filter out all other words
-yes_no=("y", "yes", "n", "no")
-
-#Ask the user what characters they want to include in the password
-#It makes sure at least on character type  is include
+#Determine which characters are to be included in the password
 while True:
     characters = ""
-    while True:
-        try:
-            letters = str(input("Include letter? (y/n) ")).lower().strip()
-        except ValueError:
-            print("Please enter yes or no! ")
-            continue
-        if letters not in yes_no:
-            print("Please enter yes or no! ")
-            continue
-        break
-
+    letters = choosing_characters("letters")
+    digits = choosing_characters("digits")
+    symbols = choosing_characters("symbols")
+    
     if letters.startswith("y"):
         characters += string.ascii_letters
 
-    while True:
-        try:
-            digits = str(input("Include digits? (y/n) ")).lower().strip()
-        except ValueError:
-            print("Please enter yes or no! ")
-            continue
-        if digits not in yes_no:
-            print("Please enter yes or no! ")
-            continue
-        break
-
     if digits.startswith("y"):
         characters += string.digits
-
-    while True:
-        try:
-            symbols = str(input("Include symbols? (y/n) ")).lower().strip()
-        except ValueError:
-            print("Please enter yes or no! ")
-            continue
-        if symbols not in yes_no:
-            print("Please enter yes or no! ")
-            continue
-        break
 
     if symbols.startswith("y"):
         characters += string.punctuation
@@ -75,7 +59,7 @@ while True:
 
 # start an empty string
 password = ""
-4
+
 # repeat until it reach to number
 for _ in range(length):
     #pick a random character
